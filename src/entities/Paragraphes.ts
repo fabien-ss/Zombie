@@ -20,13 +20,4 @@ export class Paragraphes {
   @Column("varchar", { name: "paragraphes", nullable: true, length: 255 })
   paragraphes: string | null;
 
-  @ManyToOne(
-    () => DetailsChapitre,
-    (detailsChapitre) => detailsChapitre.paragraphes,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_details_chapitre", referencedColumnName: "idDetailsChapitre" },
-  ])
-  idDetailsChapitre2: DetailsChapitre;
 }

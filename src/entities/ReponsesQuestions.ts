@@ -29,7 +29,7 @@ export class ReponsesQuestions {
     default: () => "'0'",
   })
   estVraie: boolean | null;
-
+/*
   @ManyToOne(
     () => QuestionsQuizz,
     (questionsQuizz) => questionsQuizz.reponsesQuestions,
@@ -41,5 +41,5 @@ export class ReponsesQuestions {
   idQuestionsQuizz2: QuestionsQuizz;
 
   @OneToMany(() => ReponsesQuizz, (reponsesQuizz) => reponsesQuizz.idReponse2)
-  reponsesQuizzes: ReponsesQuizz[];
+  reponsesQuizzes: ReponsesQuizz[];*/
 }

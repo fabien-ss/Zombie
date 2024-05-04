@@ -25,13 +25,5 @@ export class DetailsChapitre {
   @Column("varchar", { name: "url_photo", nullable: true, length: 255 })
   urlPhoto: string | null;
 
-  @ManyToOne(() => Chapitre, (chapitre) => chapitre.detailsChapitres, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_chapitre", referencedColumnName: "idChapitre" }])
-  idChapitre2: Chapitre;
 
-  @OneToMany(() => Paragraphes, (paragraphes) => paragraphes.idDetailsChapitre2)
-  paragraphes: Paragraphes[];
 }

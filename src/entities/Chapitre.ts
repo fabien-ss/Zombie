@@ -10,16 +10,4 @@ export class Chapitre {
 
   @Column("varchar", { name: "chapitre", nullable: true, length: 255 })
   chapitre: string | null;
-
-  @OneToMany(() => UsersChapitre, (usersChapitre) => usersChapitre.idChapitre2)
-  usersChapitres: UsersChapitre[];
-
-  @OneToMany(
-    () => DetailsChapitre,
-    (detailsChapitre) => detailsChapitre.idChapitre2
-  )
-  detailsChapitres: DetailsChapitre[];
-
-  @OneToMany(() => Quizz, (quizz) => quizz.idChapitre2)
-  quizzes: Quizz[];
 }

@@ -17,7 +17,7 @@ export class ChapitreController {
   }
 
   @Post()
-  async create(@Body() chapitreData: Partial<Chapitre>): Promise<Chapitre> {
+  async create(@Body() chapitreData: Chapitre): Promise<Chapitre> {
     return this.chapitreService.create(chapitreData);
   }
 

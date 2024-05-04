@@ -39,7 +39,7 @@ export class QuestionsQuizz {
     default: () => "'0'",
   })
   estExerciceHumain: boolean | null;
-
+/*
   @ManyToOne(() => Quizz, (quizz) => quizz.questionsQuizzes, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -54,5 +54,5 @@ export class QuestionsQuizz {
   reponsesQuestions: ReponsesQuestions[];
 
   @OneToMany(() => ReponsesQuizz, (reponsesQuizz) => reponsesQuizz.idQuestion2)
-  reponsesQuizzes: ReponsesQuizz[];
+  reponsesQuizzes: ReponsesQuizz[];*/
 }

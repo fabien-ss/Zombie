@@ -19,11 +19,11 @@ export class UsersChapitre {
 
   @Column("int", { name: "id_chapitre", nullable: true })
   idChapitre: number | null;
-
+/*
   @ManyToOne(() => Chapitre, (chapitre) => chapitre.usersChapitres, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_chapitre", referencedColumnName: "idChapitre" }])
-  idChapitre2: Chapitre;
+  idChapitre2: Chapitre;*/
 }

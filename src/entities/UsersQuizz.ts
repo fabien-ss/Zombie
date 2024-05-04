@@ -22,11 +22,11 @@ export class UsersQuizz {
 
   @Column("int", { name: "score", nullable: true })
   score: number | null;
-
+/*
   @ManyToOne(() => Quizz, (quizz) => quizz.usersQuizzes, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_quizz", referencedColumnName: "idQuizz" }])
-  idQuizz2: Quizz;
+  idQuizz2: Quizz;*/
 }

@@ -18,7 +18,9 @@ export class ChapitreService {
   }
 
   async create(chapitreData: Partial<Chapitre>): Promise<Chapitre> {
-    const chapitre = this.chapitreRepository.create(chapitreData);
+    console.log("creating")
+    console.log(chapitreData)
+    const chapitre: Chapitre = this.chapitreRepository.create(chapitreData);
     return await this.chapitreRepository.save(chapitre);
   }
 

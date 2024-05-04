@@ -22,7 +22,7 @@ export class Quizz {
 
   @Column("int", { name: "point_total", nullable: true })
   pointTotal: number | null;
-
+/*
   @OneToMany(() => QuestionsQuizz, (questionsQuizz) => questionsQuizz.idQuizz2)
   questionsQuizzes: QuestionsQuizz[];
 
@@ -34,5 +34,5 @@ export class Quizz {
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_chapitre", referencedColumnName: "idChapitre" }])
-  idChapitre2: Chapitre;
+  idChapitre2: Chapitre;*/
 }

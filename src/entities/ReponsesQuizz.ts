@@ -24,7 +24,7 @@ export class ReponsesQuizz {
 
   @Column("int", { name: "id_reponse", nullable: true })
   idReponse: number | null;
-
+/*
   @ManyToOne(
     () => QuestionsQuizz,
     (questionsQuizz) => questionsQuizz.reponsesQuizzes,
@@ -43,5 +43,5 @@ export class ReponsesQuizz {
   @JoinColumn([
     { name: "id_reponse", referencedColumnName: "idReponsesQuestions" },
   ])
-  idReponse2: ReponsesQuestions;
+  idReponse2: ReponsesQuestions;*/
 }
