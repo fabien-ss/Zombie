@@ -32,4 +32,5 @@ export class ChapitreService {
   async remove(id: number): Promise<void> {
     await this.chapitreRepository.delete(id);
   }
+  
 }

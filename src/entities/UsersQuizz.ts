@@ -9,7 +9,7 @@ import {
 import { Quizz } from "./Quizz";
 
 @Index("id_quizz", ["idQuizz"], {})
-@Entity("USERS_QUIZZ", { schema: "vittoria_webcup" })
+@Entity("users_quizz", { schema: "vittoria_webcup" })
 export class UsersQuizz {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
@@ -22,7 +22,7 @@ export class UsersQuizz {
 
   @Column("int", { name: "score", nullable: true })
   score: number | null;
-/*
+/*  
   @ManyToOne(() => Quizz, (quizz) => quizz.usersQuizzes, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",

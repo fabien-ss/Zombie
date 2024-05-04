@@ -31,4 +31,16 @@ export class UsersChapitreService {
   async remove(id: number): Promise<void> {
     await this.usersChapitreRepository.delete(id);
   }
+
+  async checkChapitre(id_chapitre: number, id_user: number): Promise<UsersChapitre> {
+    try {
+      const usersChapitre = await this.usersChapitreRepository.findOne({ where: { idChapitre: id_chapitre , idUser: id_user} });
+      if(!usersChapitre){
+        return null;
+      }
+      return usersChapitre;
+    } catch (error) {
+      console.error("UsersChapitre checkChapitre: ", error);
+    }
+  }
 }

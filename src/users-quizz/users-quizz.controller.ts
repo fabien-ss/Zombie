@@ -33,4 +33,9 @@ export class UsersQuizzController {
   async remove(@Param('id') id: string): Promise<void> {
     return this.usersQuizzService.remove(+id);
   }
+
+  @Post("/reponseQuizz")
+  async addResponseQuizz(@Body() jsonObject: any): Promise<void> {
+    return this.usersQuizzService.calculScore(jsonObject);
+  }
 }

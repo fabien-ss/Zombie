@@ -11,7 +11,7 @@ import { QuestionsQuizz } from "./QuestionsQuizz";
 import { ReponsesQuizz } from "./ReponsesQuizz";
 
 @Index("id_questions_quizz", ["idQuestionsQuizz"], {})
-@Entity("REPONSES_QUESTIONS", { schema: "vittoria_webcup" })
+@Entity("reponses_questions", { schema: "vittoria_webcup" })
 export class ReponsesQuestions {
   @PrimaryGeneratedColumn({ type: "int", name: "id_reponses_questions" })
   idReponsesQuestions: number;
