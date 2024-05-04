@@ -26,8 +26,7 @@ import { ParagraphesModule } from './paragraphes/paragraphes.module';
 import { QuestionsQuizzModule } from './questions-quizz/questions-quizz.module';
 import { QuizzModule } from './quizz/quizz.module';
 import { ReponsesQuestionModule } from './reponses-question/reponses-question.module';
-import { ReponsesQuestionsModule } from './reponses-questions/reponses-questions.module';
-import { ReponsesQuizzModule } from './reponses-quizz/reponses-quizz.module';
+
 import { UsersChapitreModule } from './users-chapitre/users-chapitre.module';
 import { UsersQuizzModule } from './users-quizz/users-quizz.module';
 
@@ -53,8 +52,6 @@ import { UsersQuizzModule } from './users-quizz/users-quizz.module';
     QuestionsQuizzModule,
     QuizzModule,
     ReponsesQuestionModule,
-    ReponsesQuestionsModule,
-    ReponsesQuizzModule,
     UsersChapitreModule,
     UsersQuizzModule,
   ],

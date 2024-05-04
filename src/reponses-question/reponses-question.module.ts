@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ReponsesQuestionService } from './reponses-question.service';
-import { ReponsesQuestionController } from './reponses-question.controller';
+import { ReponsesQuestionsService } from './reponses-question.service';
+import { ReponsesQuestionsController } from './reponses-question.controller';
+import { ReponsesQuestions } from '../entities/ReponsesQuestions';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  providers: [ReponsesQuestionService],
-  controllers: [ReponsesQuestionController]
+  imports: [TypeOrmModule.forFeature([ReponsesQuestions])],
+  providers: [ReponsesQuestionsService],
+  controllers: [ReponsesQuestionsController]
 })
 export class ReponsesQuestionModule {}
