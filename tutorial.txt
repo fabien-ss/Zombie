@@ -1,0 +1,12 @@
+install nest : npm i -g @nestjs/cli
+new project : npx @nestjs/cli new <project-name>
+cd <project-name>
+start : npm run start
+start and reload all the time : npm run start:dev
+
+generation module 
+    nest g module anarana
+    nest g controller anarana
+    nest g service anarana
+
+
