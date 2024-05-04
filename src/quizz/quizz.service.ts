@@ -5,6 +5,7 @@ import { Quizz } from '../entities/Quizz';
 import { QuestionsQuizzService } from '../questions-quizz/questions-quizz.service';
 import { UsersChapitreService } from '../users-chapitre/users-chapitre.service';
 import { UsersQuizzService } from '../users-quizz/users-quizz.service';
+import { ReponsesQuestionsService } from '../reponses-question/reponses-question.service';
 
 @Injectable()
 export class QuizzService {
@@ -14,6 +15,7 @@ export class QuizzService {
     private questionsQuizzService: QuestionsQuizzService,
     private usersChapitreService: UsersChapitreService,
     private usersQuizzService: UsersQuizzService,
+    private reponsesQuestionsService: ReponsesQuestionsService,
   ) {}
 
   async findAll(): Promise<Quizz[]> {
@@ -42,16 +44,25 @@ export class QuizzService {
     return await this.quizzRepository.findOne({ where: { idChapitre: id_chapitre } });
   }
 
-  async returnQuizz(id_user: number, id_chapitre: number): Promise<any> {
-    const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
-    if(check){
-      const quizz = await this.getQuizz(id_chapitre);
-      const result = {
-        "quizz": await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz),
-        "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
+    async returnQuizz(id_user: number, id_chapitre: number): Promise<any> {
+      const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
+      if(check){
+        const quizz = await this.getQuizz(id_chapitre);
+        const randomQuestions = await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz);
+        const rep = [];
+        for(let questions of randomQuestions){
+          rep.push({
+            "questions": questions,
+            "reponses" : await this.reponsesQuestionsService.findOneReponses(questions.id_questions_quizz)
+          })
+        }
+
+        const result = {
+          "quizz": rep,
+          "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
+        }
+        return result;
       }
-      return result;
+      return null;
     }
-    return null;
-  }
 }
