@@ -37,6 +37,7 @@ import { UsersChapitre } from './entities/UsersChapitre';
 import { UsersQuizz } from './entities/UsersQuizz';
 import { ReponsesQuizzModule } from './reponses-quizz/reponses-quizz.module';
 import { ReponsesQuizz } from './entities/ReponsesQuizz';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { ReponsesQuizz } from './entities/ReponsesQuizz';
     UsersChapitreModule,
     UsersQuizzModule,
     ReponsesQuizzModule,
+    DatabaseModule,
   ],
   controllers: [AppController,],
   providers: [AppService, HandlerGateWay, AuthService, JwtService],
