@@ -37,6 +37,7 @@ export class HandlerGateWay {
     this.server.emit('cpu-usage-recall', { cpuPercentage: cpuPercentage })
   }
 
+  @SubscribeMessage("running-processes")
   handleRunningProcesses(): void {
     const processes = execSync('ps aux').toString().split('\n');
     let formattedProcesses = processes.slice(1).map(processLine => {

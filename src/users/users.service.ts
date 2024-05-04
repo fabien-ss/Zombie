@@ -41,7 +41,8 @@ export class UsersService extends CrudService<Users>
     async login(user: Users) {
         let users = await this.repository.findOneBy(user);
         if (users.userPassword !== user.userPassword) throw new Error(`User ${user.userName} does not exist`);
-        return this.authService.generateJwtToken(users);
+        
+        return { "token" : await this.authService.generateJwtToken(users), "user" : users};
     }
 
     async signin(user: Users) {

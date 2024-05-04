@@ -10,7 +10,9 @@ export class AuthService {
 
   async generateJwtToken(user: Users): Promise<string> {
     const payload = { email: user.userName, password: user.userPassword }
-    return this.jwtService.sign(payload);
+    return this.jwtService.sign(payload, {
+      secret: jwtConstants.jwt_refresh_secret,
+    });
   }
 
   async generateJwtTokenAdmin(user: Administrator): Promise<string> {
