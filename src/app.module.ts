@@ -25,12 +25,12 @@ import { Administrator } from './entities/Administrator';
   imports: [
 
     TypeOrmModule.forRoot({
-      type: "postgres", // Le type de votre base de données (postgres pour PostgreSQL)
-      host: "localhost",//"vittoria.madagascar.webcup.hodi.host", // L'adresse de votre base de données
-      port: 5432,//Number(process.env.DATABASE_PORT), // Le port de votre base de données PostgreSQL par défaut est 5432
-      username: "your_username",//"vittoria", // Le nom d'utilisateur de votre base de données
-      password: "your_password",//"24Vittoria!", // Le mot de passe de votre base de données
-      database:"test", //"vittoria_rencontre", // Le nom de votre base de données
+      type: "mysql", // Le type de votre base de données (postgres pour PostgreSQL)
+      host: "vittoria.madagascar.webcup.hodi.host", // L'adresse de votre base de données
+      port: Number(process.env.DATABASE_PORT), // Le port de votre base de données PostgreSQL par défaut est 5432
+      username: "vittoria", // Le nom d'utilisateur de votre base de données
+      password: "24Vittoria!", // Le mot de passe de votre base de données
+      database:"vittoria_webcup", // Le nom de votre base de données
       entities: [Users, Standart, StandartUser, DetailsStandart, Administrator],
       synchronize: true, // Mettez à true pour synchroniser automatiquement les entités avec la base de données (utile pour le développement)
     }),
