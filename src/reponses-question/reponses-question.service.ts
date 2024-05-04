@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReponsesQuestions } from '../entities/ReponsesQuestions';
+import { getConnection } from 'typeorm';
 
 @Injectable()
 export class ReponsesQuestionsService {
@@ -16,6 +17,12 @@ export class ReponsesQuestionsService {
 
   async findOne(id: number): Promise<ReponsesQuestions> {
     return await this.reponsesQuestionsRepository.findOne( { where: { idReponsesQuestions: id}});
+  }
+
+  async findOneReponses(id: number): Promise<ReponsesQuestions[]> {
+    const connection = getConnection();
+    const reponses = await connection.query('SELECT * FROM `reponses_questions` `reponsesQuestions` WHERE `reponsesQuestions`.`id_questions_quizz` = ? ;', [id]);
+    return reponses;
   }
 
   async create(reponsesQuestionsData: Partial<ReponsesQuestions>): Promise<ReponsesQuestions> {

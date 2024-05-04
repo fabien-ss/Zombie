@@ -48,14 +48,14 @@ export class QuestionsQuizzService {
             const connection = getConnection();
             const nonDifficultQuestions = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]); // Exécutez la requête SQL brute
 
-            console.log(nonDifficultQuestions);
+            // console.log(nonDifficultQuestions);
 
             const difficultQuestion = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz])
 
-            console.log(difficultQuestion);
+            // console.log(difficultQuestion);
 
             const questions = [...nonDifficultQuestions,...difficultQuestion];
-            console.log(questions);
+            // console.log(questions);
 
             if(!questions){
                 return null;

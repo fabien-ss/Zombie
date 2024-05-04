@@ -65,4 +65,9 @@ export class ReplicateController {
     textToVideo(@Body() prompt: string){
         return this.replicateService.textToVideo(prompt);
     }
+
+    @Post('audio-to-text')
+    audioToText(@Body() prompt: string){
+        return this.replicateService.audioToText(prompt);
+    }
 }
