@@ -1,7 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_standart", ["idStandart"], { unique: true })
-@Entity("standart", { schema: "vittoria_rencontre" })
+@Entity("standart", { schema: "vittoria_webcup" })
 export class Standart {
   @PrimaryGeneratedColumn({
     type: "bigint",

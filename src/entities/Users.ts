@@ -3,7 +3,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 @Index("id_user", ["idUser"], { unique: true })
 @Index("IDX_5f405e01e8ec38ab16c01286c6", ["userMail"], { unique: true })
 @Index("user_mail", ["userMail"], { unique: true })
-@Entity("users", { schema: "vittoria_rencontre" })
+@Entity("users", { schema: "vittoria_webcup" })
 export class Users {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id_user", unsigned: true })
   idUser: string;

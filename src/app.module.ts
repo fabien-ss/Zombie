@@ -20,6 +20,16 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './jwts/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { Administrator } from './entities/Administrator';
+import { ChapitreModule } from './chapitre/chapitre.module';
+import { DetailsChapitreModule } from './details-chapitre/details-chapitre.module';
+import { ParagraphesModule } from './paragraphes/paragraphes.module';
+import { QuestionsQuizzModule } from './questions-quizz/questions-quizz.module';
+import { QuizzModule } from './quizz/quizz.module';
+import { ReponsesQuestionModule } from './reponses-question/reponses-question.module';
+import { ReponsesQuestionsModule } from './reponses-questions/reponses-questions.module';
+import { ReponsesQuizzModule } from './reponses-quizz/reponses-quizz.module';
+import { UsersChapitreModule } from './users-chapitre/users-chapitre.module';
+import { UsersQuizzModule } from './users-quizz/users-quizz.module';
 
 @Module({
   imports: [
@@ -37,6 +47,16 @@ import { Administrator } from './entities/Administrator';
 
     UploaderModule, ReplicateModule, BrainShopModule, StandartModule, UsersModule, DetailsStandartModule, StandartUserModule, ServerModule, AdministratorModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
+    ChapitreModule,
+    DetailsChapitreModule,
+    ParagraphesModule,
+    QuestionsQuizzModule,
+    QuizzModule,
+    ReponsesQuestionModule,
+    ReponsesQuestionsModule,
+    ReponsesQuizzModule,
+    UsersChapitreModule,
+    UsersQuizzModule,
   ],
   controllers: [AppController,],
   providers: [AppService, HandlerGateWay, AuthService, JwtService],

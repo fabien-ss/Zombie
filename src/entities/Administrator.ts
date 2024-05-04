@@ -1,8 +1,9 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_administrator", ["idAdministrator"], { unique: true })
+@Index("IDX_be0ce9bef56d5a30b9e5752564", ["email"], { unique: true })
 @Index("uni", ["email"], { unique: true })
-@Entity("administrator", { schema: "vittoria_rencontre" })
+@Entity("administrator", { schema: "vittoria_webcup" })
 export class Administrator {
   @PrimaryGeneratedColumn({
     type: "bigint",
