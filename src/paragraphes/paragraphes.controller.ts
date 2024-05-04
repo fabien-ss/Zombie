@@ -4,33 +4,38 @@ import { Paragraphes } from '../entities/Paragraphes';
 
 @Controller('paragraphes')
 export class ParagraphesController {
-  constructor(private readonly paragraphesService: ParagraphesService) {}
+    constructor(private readonly paragraphesService: ParagraphesService) { }
 
-  @Get()
-  async findAll(): Promise<Paragraphes[]> {
-    return this.paragraphesService.findAll();
-  }
+    @Get("paragraphes/chapitre/:id")
+    async getParagraphes(@Param("id") id: string): Promise<Paragraphes[]> {
+        return this.paragraphesService.getParagraphesByIdDetailsChapitre(+id);
+    }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<Paragraphes> {
-    return this.paragraphesService.findOne(+id);
-  }
+    @Get()
+    async findAll(): Promise<Paragraphes[]> {
+        return this.paragraphesService.findAll();
+    }
 
-  @Post()
-  async create(@Body() paragraphesData: Partial<Paragraphes>): Promise<Paragraphes> {
-    return this.paragraphesService.create(paragraphesData);
-  }
+    @Get(':id')
+    async findOne(@Param('id') id: string): Promise<Paragraphes> {
+        return this.paragraphesService.findOne(+id);
+    }
 
-  @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() paragraphesData: Partial<Paragraphes>,
-  ): Promise<Paragraphes> {
-    return this.paragraphesService.update(+id, paragraphesData);
-  }
+    @Post()
+    async create(@Body() paragraphesData: Partial<Paragraphes>): Promise<Paragraphes> {
+        return this.paragraphesService.create(paragraphesData);
+    }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
-    return this.paragraphesService.remove(+id);
-  }
+    @Put(':id')
+    async update(
+        @Param('id') id: string,
+        @Body() paragraphesData: Partial<Paragraphes>,
+    ): Promise<Paragraphes> {
+        return this.paragraphesService.update(+id, paragraphesData);
+    }
+
+    @Delete(':id')
+    async remove(@Param('id') id: string): Promise<void> {
+        return this.paragraphesService.remove(+id);
+    }
 }

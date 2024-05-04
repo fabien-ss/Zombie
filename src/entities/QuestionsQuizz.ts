@@ -38,7 +38,10 @@ export class QuestionsQuizz {
     width: 1,
     default: () => "'0'",
   })
-  estExerciceHumain: boolean | null;
+  estExerciceHumain: string | null;
+  
+  @Column("varchar", { name: "description_exercice", nullable: true, length: 255 })
+  descriptionExercice: string | null;
 /*
   @ManyToOne(() => Quizz, (quizz) => quizz.questionsQuizzes, {
     onDelete: "NO ACTION",

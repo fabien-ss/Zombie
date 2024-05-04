@@ -20,4 +20,7 @@ export class Paragraphes {
   @Column("varchar", { name: "paragraphes", nullable: true, length: 255 })
   paragraphes: string | null;
 
+  @Column("varchar", { name: "url_paragraphes", nullable: true, length: 500 })
+  url_paragraphes: string | null;
+
 }
