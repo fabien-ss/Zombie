@@ -33,4 +33,9 @@ export class QuizzController {
   async remove(@Param('id') id: string): Promise<void> {
     return this.quizzService.remove(+id);
   }
+
+  @Get('/quizzParChapitre/:idUser/:idChapitre')
+  async getQuizzParChapitre(@Param('idUser') idUser: string, @Param('idChapitre') idChapitre: string): Promise<Quizz> {
+    return this.quizzService.returnQuizz(+idUser, +idChapitre);
+  }
 }

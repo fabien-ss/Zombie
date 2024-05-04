@@ -2,12 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsersQuizz } from '../entities/UsersQuizz';
+import { ReponsesQuizzService } from '../reponses-quizz/reponses-quizz.service';
+import { getConnection } from 'typeorm';
 
 @Injectable()
 export class UsersQuizzService {
   constructor(
     @InjectRepository(UsersQuizz)
     private readonly usersQuizzRepository: Repository<UsersQuizz>,
+    private reponseQuizzService: ReponsesQuizzService,
   ) {}
 
   async findAll(): Promise<UsersQuizz[]> {
@@ -30,5 +33,57 @@ export class UsersQuizzService {
 
   async remove(id: number): Promise<void> {
     await this.usersQuizzRepository.delete(id);
+  }
+
+  // start
+  async calculScore(jsonObject) {
+    try {
+        let score = 0;
+
+        if (!Array.isArray(jsonObject.data)) {
+          throw new Error('jsonObject.data is not an array');
+        }
+    
+        for(let oneData of jsonObject.data){
+          let score_temporaire = await this.reponseQuizzService.getScore(oneData.idQuestion, oneData.estVraie, oneData.idReponse, jsonObject.idUser);
+          score += score_temporaire;
+        }
+    
+        const usersQuizz = new UsersQuizz();
+        usersQuizz.idQuizz = jsonObject.idQuizz;
+        usersQuizz.idUser = jsonObject.idUser;
+        usersQuizz.score = score;
+    
+        console.log(usersQuizz);
+        const result = await this.create(usersQuizz);
+        console.log('Create operation result:', result);
+        
+    } catch (error) {
+      console.error("CalculScore in users-quizz-services: ", error);
+      console.log("CalculScore in users-quizz-services: ", error);
+    }
+  }
+
+  async getScoreForQuizz(idUser: number, idQuizz: number): Promise<UsersQuizz> {
+    try {
+      // const reponses = await this.usersQuizzRepository.find({
+      //   where: { idUser: idUser, idQuizz: idQuizz },
+      //   order: { id: 'DESC' },
+      //   take: 1
+      // });
+
+      const connection = getConnection();
+      const reponses = await connection.query('SELECT * FROM `users_quizz` `usersQuizz` WHERE `usersQuizz`.`id_quizz` = ? AND `usersQuizz`.`id_user` = ? ORDER BY id DESC LIMIT 1;', [idQuizz, idUser]); // Exécutez la requête SQL brute
+
+      console.log(reponses);
+      if(!reponses){
+        return null;
+      }
+      return reponses[0];
+
+    } catch (error) {
+      console.error("Error User-Quizz-Service: ", error);
+      console.log("Error User-Quizz-Service: ", error);
+    }
   }
 }

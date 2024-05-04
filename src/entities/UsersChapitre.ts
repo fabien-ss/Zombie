@@ -9,7 +9,7 @@ import {
 import { Chapitre } from "./Chapitre";
 
 @Index("id_chapitre", ["idChapitre"], {})
-@Entity("USERS_CHAPITRE", { schema: "vittoria_webcup" })
+@Entity("users_chapitre", { schema: "vittoria_webcup" })
 export class UsersChapitre {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;

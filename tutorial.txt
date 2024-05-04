@@ -9,4 +9,31 @@ generation module
     nest g controller anarana
     nest g service anarana
 
+mysql -u vittoria -h vittoria.madagascar.webcup.hodi.host -p
+RENAME TABLE old_table_name TO new_table_name;
+
+recherche pour la reponse
+curl -X POST http://localhost:4000/wcbp/users-quizz/reponseQuizz \
+-H "Content-Type: application/json" \
+-d '{
+  "idQuizz": 1,
+  "idUser": 1,
+  "data": [
+    {
+      "idQuestion": 1,
+      "estVraie": false,
+      "idReponse": 7
+    },
+    {
+      "idQuestion": 2,
+      "estVraie": true,
+      "idReponse": 1
+    },
+    {
+      "idQuestion": 3,
+      "estVraie": true,
+      "idReponse": 4
+    }
+  ]
+}'
 

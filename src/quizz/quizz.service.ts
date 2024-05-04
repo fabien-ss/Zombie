@@ -2,12 +2,18 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Quizz } from '../entities/Quizz';
+import { QuestionsQuizzService } from '../questions-quizz/questions-quizz.service';
+import { UsersChapitreService } from '../users-chapitre/users-chapitre.service';
+import { UsersQuizzService } from '../users-quizz/users-quizz.service';
 
 @Injectable()
 export class QuizzService {
   constructor(
     @InjectRepository(Quizz)
     private readonly quizzRepository: Repository<Quizz>,
+    private questionsQuizzService: QuestionsQuizzService,
+    private usersChapitreService: UsersChapitreService,
+    private usersQuizzService: UsersQuizzService,
   ) {}
 
   async findAll(): Promise<Quizz[]> {
@@ -30,5 +36,22 @@ export class QuizzService {
 
   async remove(id: number): Promise<void> {
     await this.quizzRepository.delete(id);
+  }
+
+  async getQuizz(id_chapitre: number): Promise<Quizz> {
+    return await this.quizzRepository.findOne({ where: { idChapitre: id_chapitre } });
+  }
+
+  async returnQuizz(id_user: number, id_chapitre: number): Promise<any> {
+    const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
+    if(check){
+      const quizz = await this.getQuizz(id_chapitre);
+      const result = {
+        "quizz": await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz),
+        "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
+      }
+      return result;
+    }
+    return null;
   }
 }
