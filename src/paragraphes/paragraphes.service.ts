@@ -11,6 +11,10 @@ export class ParagraphesService {
     private readonly paragraphesRepository: Repository<Paragraphes>,
   ) {}
 
+  async getParagraphesByIdDetailsChapitre(id: number){
+    return await this.paragraphesRepository.find({ where: {idDetailsChapitre: id}})
+  }
+
   async findAll(): Promise<Paragraphes[]> {
     return await this.paragraphesRepository.find();
   }

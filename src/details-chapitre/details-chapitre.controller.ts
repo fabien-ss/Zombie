@@ -6,6 +6,11 @@ import { DetailsChapitre } from '../entities/DetailsChapitre';
 export class DetailsChapitreController {
   constructor(private readonly detailsChapitreService: DetailsChapitreService) {}
 
+  @Get('chapitre/:id')
+  async findDetailsByIdChapitre(id: number): Promise<DetailsChapitre[]>{
+    return this.detailsChapitreService.getDetailsByIdChapitre(id);
+  }
+
   @Get()
   async findAll(): Promise<DetailsChapitre[]> {
     return this.detailsChapitreService.findAll();

@@ -5,6 +5,10 @@ import { DetailsChapitre } from '../entities/DetailsChapitre';
 
 @Injectable()
 export class DetailsChapitreService {
+  async getDetailsByIdChapitre(id: number) {
+     // throw new Error('Method not implemented.');
+      return await this.detailsChapitreRepository.find({ where: { idChapitre : id}})
+  }
   constructor(
     @InjectRepository(DetailsChapitre)
     private readonly detailsChapitreRepository: Repository<DetailsChapitre>,

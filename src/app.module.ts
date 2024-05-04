@@ -35,6 +35,8 @@ import { Paragraphes } from './entities/Paragraphes';
 import { QuestionsQuizz } from './entities/QuestionsQuizz';
 import { UsersChapitre } from './entities/UsersChapitre';
 import { UsersQuizz } from './entities/UsersQuizz';
+import { ReponsesQuizzModule } from './reponses-quizz/reponses-quizz.module';
+import { ReponsesQuizz } from './entities/ReponsesQuizz';
 
 @Module({
   imports: [
@@ -46,7 +48,7 @@ import { UsersQuizz } from './entities/UsersQuizz';
       username: "vittoria", // Le nom d'utilisateur de votre base de données
       password: "24Vittoria!", // Le mot de passe de votre base de données
       database:"vittoria_webcup", // Le nom de votre base de données
-      entities: [Users, StandartUser,Administrator, Chapitre, DetailsChapitre, Paragraphes, QuestionsQuizz, UsersChapitre, UsersQuizz],
+      entities: [Users, StandartUser,Administrator, Chapitre, DetailsChapitre, Paragraphes, QuestionsQuizz, UsersChapitre, UsersQuizz, ReponsesQuizz],
       synchronize: true, // Mettez à true pour synchroniser automatiquement les entités avec la base de données (utile pour le développement)
     }),
 
@@ -60,6 +62,7 @@ import { UsersQuizz } from './entities/UsersQuizz';
     ReponsesQuestionModule,
     UsersChapitreModule,
     UsersQuizzModule,
+    ReponsesQuizzModule,
   ],
   controllers: [AppController,],
   providers: [AppService, HandlerGateWay, AuthService, JwtService],
