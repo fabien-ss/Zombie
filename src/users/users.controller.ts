@@ -26,7 +26,7 @@ export class UsersController implements CrudController<Users>{
             console.log(e);
             return {
                 status: 500,
-                data: e.detail
+                data: e.message
             }
         }
     }
