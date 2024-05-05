@@ -6,6 +6,7 @@ import { QuestionsQuizzService } from '../questions-quizz/questions-quizz.servic
 import { UsersChapitreService } from '../users-chapitre/users-chapitre.service';
 import { UsersQuizzService } from '../users-quizz/users-quizz.service';
 import { ReponsesQuestionsService } from '../reponses-question/reponses-question.service';
+import { QuestionsQuizz } from '../entities/QuestionsQuizz';
 
 @Injectable()
 export class QuizzService {
@@ -48,20 +49,23 @@ export class QuizzService {
       const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
       if(check){
         const quizz = await this.getQuizz(id_chapitre);
-        const randomQuestions = await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz);
+        // Assuming this code is inside an async function
+        const randomQuestions: QuestionsQuizz[] = await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz);
         const rep = [];
-        for(let questions of randomQuestions){
-          rep.push({
-            "questions": questions,
-            "reponses" : await this.reponsesQuestionsService.findOneReponses(questions.id_questions_quizz)
-          })
+        if(Array.isArray(randomQuestions)){
+          for(let questions of randomQuestions){
+            rep.push({
+              "questions": questions,
+              "reponses" : await this.reponsesQuestionsService.findOneReponses(questions.idQuestionsQuizz)
+            })
+          }
+  
+          const result = {
+            "quizz": rep,
+            "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
+          }
+          return result;
         }
-
-        const result = {
-          "quizz": rep,
-          "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
-        }
-        return result;
       }
       return null;
     }

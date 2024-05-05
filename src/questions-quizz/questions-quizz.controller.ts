@@ -36,7 +36,7 @@ export class QuestionsQuizzController {
 
   // start
   @Get('randomQuestions/:id_quizz')
-  async getQuestions(@Param('id_quizz') id_quizz: string): Promise<QuestionsQuizz> {
+  async getQuestions(@Param('id_quizz') id_quizz: string): Promise<QuestionsQuizz[]> {
     return this.questionsQuizzService.getRandomQuestionsQuizz(+id_quizz);
   }
 }

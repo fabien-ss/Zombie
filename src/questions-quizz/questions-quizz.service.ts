@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { getConnection } from 'typeorm';
+import { Connection } from 'typeorm';
 
 import { QuestionsQuizz } from '../entities/QuestionsQuizz';
 @Injectable()
@@ -9,6 +9,7 @@ export class QuestionsQuizzService {
   constructor(
     @InjectRepository(QuestionsQuizz)
     private readonly questionsQuizzRepository: Repository<QuestionsQuizz>,
+    private readonly connection: Connection,
   ) {}
 
   async findAll(): Promise<QuestionsQuizz[]> {
@@ -33,37 +34,19 @@ export class QuestionsQuizzService {
     await this.questionsQuizzRepository.delete(id);
   }
 
-    async getRandomQuestionsQuizz(id_quizz: number): Promise<any> {
-        try {
+  async getRandomQuestionsQuizz(id_quizz: number): Promise<QuestionsQuizz[]> {
+    try {
+        const nonDifficultQuestions = await this.connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]);
+        const difficultQuestion = await this.connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz]);
 
-            // const nonDifficultQuestions = await this.questionsQuizzRepository
-            // .createQueryBuilder('questionsQuizz') 
-            // .select('*')
-            // .where('questionsQuizz.id_quizz = :id_quizz', { id_quizz })
-            // .andWhere('questionsQuizz.est_difficile = 0')
-            // .orderBy('RAND()')
-            // .limit(2)
-            // .getMany();
+        const questions = [...nonDifficultQuestions, ...difficultQuestion];
 
-            const connection = getConnection();
-            const nonDifficultQuestions = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]); // Exécutez la requête SQL brute
-
-            // console.log(nonDifficultQuestions);
-
-            const difficultQuestion = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz])
-
-            // console.log(difficultQuestion);
-
-            const questions = [...nonDifficultQuestions,...difficultQuestion];
-            // console.log(questions);
-
-            if(!questions){
-                return null;
-            }
-            return questions;
-        } catch (error) {
-            console.error("Error getRandomQuestionsQuizz in questions-quizz.service: ", error);
-            console.log("Error getRandomQuestionsQuizz in questions-quizz.service: ", error);
-        }
+        // Ensure that the method always returns an array, even if it's empty
+        return questions || [];
+    } catch (error) {
+        console.error("Error getRandomQuestionsQuizz in questions-quizz.service: ", error);
+        return []; // Return an empty array in case of an error
     }
+}
+
 }

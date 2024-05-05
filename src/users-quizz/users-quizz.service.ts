@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UsersQuizz } from '../entities/UsersQuizz';
 import { ReponsesQuizzService } from '../reponses-quizz/reponses-quizz.service';
-import { getConnection } from 'typeorm';
+import { Connection } from 'typeorm';
 
 @Injectable()
 export class UsersQuizzService {
@@ -11,6 +11,7 @@ export class UsersQuizzService {
     @InjectRepository(UsersQuizz)
     private readonly usersQuizzRepository: Repository<UsersQuizz>,
     private reponseQuizzService: ReponsesQuizzService,
+    private readonly connection: Connection,
   ) {}
 
   async findAll(): Promise<UsersQuizz[]> {
@@ -44,10 +45,11 @@ export class UsersQuizzService {
           throw new Error('jsonObject.data is not an array');
         }
     
-        for(let oneData of jsonObject.data){
-          let score_temporaire = await this.reponseQuizzService.getScore(oneData.idQuestion, oneData.estVraie, oneData.idReponse, jsonObject.idUser);
-          score += score_temporaire;
-        }
+        const scorePromises = jsonObject.data.map(oneData => 
+          this.reponseQuizzService.getScore(oneData.idQuestion, oneData.estVraie, oneData.idReponse, jsonObject.idUser)
+         );
+        const scores = await Promise.all(scorePromises);
+        score = scores.reduce((acc, curr) => acc + curr, 0);         
     
         const usersQuizz = new UsersQuizz();
         usersQuizz.idQuizz = jsonObject.idQuizz;
@@ -71,9 +73,7 @@ export class UsersQuizzService {
       //   order: { id: 'DESC' },
       //   take: 1
       // });
-
-      const connection = getConnection();
-      const reponses = await connection.query('SELECT * FROM `users_quizz` `usersQuizz` WHERE `usersQuizz`.`id_quizz` = ? AND `usersQuizz`.`id_user` = ? ORDER BY id DESC LIMIT 1;', [idQuizz, idUser]); // Exécutez la requête SQL brute
+      const reponses = await this.connection.query('SELECT * FROM `users_quizz` `usersQuizz` WHERE `usersQuizz`.`id_quizz` = ? AND `usersQuizz`.`id_user` = ? ORDER BY id DESC LIMIT 1;', [idQuizz, idUser]); // Exécutez la requête SQL brute
 
       console.log(reponses);
       if(!reponses){
