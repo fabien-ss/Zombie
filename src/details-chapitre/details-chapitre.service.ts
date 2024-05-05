@@ -2,16 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DetailsChapitre } from '../entities/DetailsChapitre';
+import { Chapitre } from '../entities/Chapitre';
+import { ParagraphesService } from '../paragraphes/paragraphes.service';
 
 @Injectable()
-export class DetailsChapitreService {
-  async getDetailsByIdChapitre(id: number) {
-     // throw new Error('Method not implemented.');
-      return await this.detailsChapitreRepository.find({ where: { idChapitre : id}})
-  }
+  export class DetailsChapitreService {
+    async getDetailsByIdChapitre(id: number) {
+      let chapitre: DetailsChapitre[] = await this.detailsChapitreRepository.find();
+      
+      // Filter out details with matching chapter ID
+      chapitre = chapitre.filter(detail => detail.idChapitre == id);
+        
+      return chapitre; 
+    }
+    
   constructor(
     @InjectRepository(DetailsChapitre)
     private readonly detailsChapitreRepository: Repository<DetailsChapitre>,
+    private readonly paragrapheService: ParagraphesService
   ) {}
 
   async findAll(): Promise<DetailsChapitre[]> {

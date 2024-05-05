@@ -38,7 +38,7 @@ export class ReplicateService{
             top_p: 1,
             prompt: q,
             temperature: 0.75,
-            system_prompt: "Give short answer",
+            system_prompt: "Talk about zombie",
             length_penalty: 1,
             max_new_tokens: 800,
             prompt_template: "<s>[INST] <<SYS>>\n{system_prompt}\n<</SYS>>\n\n{prompt} [/INST]",

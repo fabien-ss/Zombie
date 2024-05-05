@@ -6,6 +6,9 @@ import { Paragraphes } from '../entities/Paragraphes';
 
 @Injectable()
 export class ParagraphesService {
+  async findParagrapheByIdDetailsChapite(id: number): Promise<Paragraphes[]> {
+    return await this.paragraphesRepository.find({ where: { idDetailsChapitre: id }});
+}
   constructor(
     @InjectRepository(Paragraphes)
     private readonly paragraphesRepository: Repository<Paragraphes>,

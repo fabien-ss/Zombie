@@ -26,4 +26,5 @@ export class DetailsChapitre {
   urlPhoto: string | null;
 
 
+  paragraphes: Paragraphes[] = [];
 }
