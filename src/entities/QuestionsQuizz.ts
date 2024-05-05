@@ -1,15 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Quizz } from "./Quizz";
-import { ReponsesQuestions } from "./ReponsesQuestions";
-import { ReponsesQuizz } from "./ReponsesQuizz";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_quizz", ["idQuizz"], {})
 @Entity("questions_quizz", { schema: "vittoria_webcup" })
@@ -38,24 +27,12 @@ export class QuestionsQuizz {
     width: 1,
     default: () => "'0'",
   })
-  estExerciceHumain: string | null;
-  
-  @Column("varchar", { name: "description_exercice", nullable: true, length: 255 })
-  descriptionExercice: string | null;
-/*
-  @ManyToOne(() => Quizz, (quizz) => quizz.questionsQuizzes, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
+  estExerciceHumain: boolean | null;
+
+  @Column("varchar", {
+    name: "description_exercice",
+    nullable: true,
+    length: 255,
   })
-  @JoinColumn([{ name: "id_quizz", referencedColumnName: "idQuizz" }])
-  idQuizz2: Quizz;
-
-  @OneToMany(
-    () => ReponsesQuestions,
-    (reponsesQuestions) => reponsesQuestions.idQuestionsQuizz2
-  )
-  reponsesQuestions: ReponsesQuestions[];
-
-  @OneToMany(() => ReponsesQuizz, (reponsesQuizz) => reponsesQuizz.idQuestion2)
-  reponsesQuizzes: ReponsesQuizz[];*/
+  descriptionExercice: string | null;
 }

@@ -3,6 +3,10 @@ import { Socket } from "socket.io";
 import * as os from 'os';
 import { execSync } from "child_process";
 
+import { AdministratorService } from "../administrator/administrator.service";
+import { MessageService } from "../message/message.service";
+import { Message } from "../entities/Message";
+
 console.log("it's the web socket server")
 @WebSocketGateway({
   cors: {
@@ -13,7 +17,15 @@ console.log("it's the web socket server")
 export class HandlerGateWay {
 
   @WebSocketServer()
-  server;
+    server;
+
+  forums: any
+  constructor(
+    private messageService: MessageService, // Inject the MessageService here
+  ) {
+    this.forums = messageService.findAll();
+  }
+  
   private positions: Map<string, { x: number, y: number, z: number }> = new Map();
 
   @SubscribeMessage('uptime')
@@ -57,10 +69,22 @@ export class HandlerGateWay {
     return newArray;
   }
 
+
   @SubscribeMessage('message')
-  handleMessage(@MessageBody() message: string,): void {
+   handleMessageForum(@MessageBody() message: any, email: string): void {
+    let mess: Message = new Message();
+    mess.message = message;
+    mess.email = email;
     console.log("message ", message);
+    this.messageService.insertData(message.message, message.email);
     this.server.emit('message', message);
+   
+  }  
+
+  @SubscribeMessage('forum')
+  handleMessage(): void {
+    console.log("forum ", this.forums); 
+    this.server.emit('forum', this.forums);
   }
 
   @SubscribeMessage('client')

@@ -1,14 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Chapitre } from "./Chapitre";
-import { Paragraphes } from "./Paragraphes";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_chapitre", ["idChapitre"], {})
 @Entity("details_chapitre", { schema: "vittoria_webcup" })
@@ -24,7 +14,4 @@ export class DetailsChapitre {
 
   @Column("varchar", { name: "url_photo", nullable: true, length: 255 })
   urlPhoto: string | null;
-
-
-  paragraphes: Paragraphes[] = [];
 }

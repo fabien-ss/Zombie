@@ -1,14 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { QuestionsQuizz } from "./QuestionsQuizz";
-import { ReponsesQuizz } from "./ReponsesQuizz";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_questions_quizz", ["idQuestionsQuizz"], {})
 @Entity("reponses_questions", { schema: "vittoria_webcup" })
@@ -29,17 +19,4 @@ export class ReponsesQuestions {
     default: () => "'0'",
   })
   estVraie: boolean | null;
-/*
-  @ManyToOne(
-    () => QuestionsQuizz,
-    (questionsQuizz) => questionsQuizz.reponsesQuestions,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_questions_quizz", referencedColumnName: "idQuestionsQuizz" },
-  ])
-  idQuestionsQuizz2: QuestionsQuizz;
-
-  @OneToMany(() => ReponsesQuizz, (reponsesQuizz) => reponsesQuizz.idReponse2)
-  reponsesQuizzes: ReponsesQuizz[];*/
 }

@@ -1,7 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { UsersChapitre } from "./UsersChapitre";
-import { DetailsChapitre } from "./DetailsChapitre";
-import { Quizz } from "./Quizz";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("chapitre", { schema: "vittoria_webcup" })
 export class Chapitre {
@@ -10,8 +7,4 @@ export class Chapitre {
 
   @Column("varchar", { name: "chapitre", nullable: true, length: 255 })
   chapitre: string | null;
-
-  @Column("varchar", { name: "image", nullable: true, length: 255 })
-  image: string | null;
-  
 }

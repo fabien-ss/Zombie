@@ -1,13 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { QuestionsQuizz } from "./QuestionsQuizz";
-import { ReponsesQuestions } from "./ReponsesQuestions";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_question", ["idQuestion"], {})
 @Index("id_reponse", ["idReponse"], {})
@@ -24,24 +15,4 @@ export class ReponsesQuizz {
 
   @Column("int", { name: "id_reponse", nullable: true })
   idReponse: number | null;
-/*
-  @ManyToOne(
-    () => QuestionsQuizz,
-    (questionsQuizz) => questionsQuizz.reponsesQuizzes,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_question", referencedColumnName: "idQuestionsQuizz" },
-  ])
-  idQuestion2: QuestionsQuizz;
-
-  @ManyToOne(
-    () => ReponsesQuestions,
-    (reponsesQuestions) => reponsesQuestions.reponsesQuizzes,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "id_reponse", referencedColumnName: "idReponsesQuestions" },
-  ])
-  idReponse2: ReponsesQuestions;*/
 }

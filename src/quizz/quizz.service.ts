@@ -16,7 +16,7 @@ export class QuizzService {
     private usersChapitreService: UsersChapitreService,
     private usersQuizzService: UsersQuizzService,
     private reponsesQuestionsService: ReponsesQuestionsService,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Quizz[]> {
     return await this.quizzRepository.find();
@@ -44,25 +44,25 @@ export class QuizzService {
     return await this.quizzRepository.findOne({ where: { idChapitre: id_chapitre } });
   }
 
-    async returnQuizz(id_user: number, id_chapitre: number): Promise<any> {
-      const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
-      if(check){
-        const quizz = await this.getQuizz(id_chapitre);
-        const randomQuestions = await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz);
-        const rep = [];
-        for(let questions of randomQuestions){
-          rep.push({
-            "questions": questions,
-            "reponses" : await this.reponsesQuestionsService.findOneReponses(questions.id_questions_quizz)
-          })
-        }
-
-        const result = {
-          "quizz": rep,
-          "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
-        }
-        return result;
+  async returnQuizz(id_user: number, id_chapitre: number): Promise<any> {
+    const check = await this.usersChapitreService.checkChapitre(id_chapitre, id_user);
+    if (check) {
+      const quizz = await this.getQuizz(id_chapitre);
+      let randomQuestions: any[] = await this.questionsQuizzService.getRandomQuestionsQuizz(quizz.idQuizz);
+      let rep = [];
+      for (let questions of randomQuestions) {
+        rep.push({
+          "questions": questions,
+          "reponses": await this.reponsesQuestionsService.findOneReponses(questions.id_questions_quizz)
+        })
       }
-      return null;
+
+      const result = {
+        "quizz": rep,
+        "note": await this.usersQuizzService.getScoreForQuizz(id_user, quizz.idQuizz)
+      }
+      return result;
     }
+    return null;
+  }
 }

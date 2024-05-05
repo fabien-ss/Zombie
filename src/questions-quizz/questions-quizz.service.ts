@@ -6,6 +6,10 @@ import { getConnection } from 'typeorm';
 import { QuestionsQuizz } from '../entities/QuestionsQuizz';
 @Injectable()
 export class QuestionsQuizzService {
+  async getQuestionsByIdQuizz(arg0: number): Promise<QuestionsQuizz[] | PromiseLike<QuestionsQuizz[]>> {
+    //throw new Error('Method not implemented.');
+     return await this.questionsQuizzRepository.find({ where: { idQuizz: arg0 }});
+  }
   constructor(
     @InjectRepository(QuestionsQuizz)
     private readonly questionsQuizzRepository: Repository<QuestionsQuizz>,
@@ -36,19 +40,8 @@ export class QuestionsQuizzService {
     async getRandomQuestionsQuizz(id_quizz: number): Promise<any> {
         try {
 
-            // const nonDifficultQuestions = await this.questionsQuizzRepository
-            // .createQueryBuilder('questionsQuizz') 
-            // .select('*')
-            // .where('questionsQuizz.id_quizz = :id_quizz', { id_quizz })
-            // .andWhere('questionsQuizz.est_difficile = 0')
-            // .orderBy('RAND()')
-            // .limit(2)
-            // .getMany();
-
             const connection = getConnection();
             const nonDifficultQuestions = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]); // Exécutez la requête SQL brute
-
-            // console.log(nonDifficultQuestions);
 
             const difficultQuestion = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz])
 

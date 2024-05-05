@@ -6,6 +6,11 @@ import { QuestionsQuizzService } from './questions-quizz.service';
 export class QuestionsQuizzController {
   constructor(private readonly questionsQuizzService: QuestionsQuizzService) {}
 
+  @Get("chapitre/:id")
+  async findQuestionByChapitre(@Param('id') id: string): Promise<QuestionsQuizz[]> {
+    return this.questionsQuizzService.getQuestionsByIdQuizz(+id);
+  }
+
   @Get()
   async findAll(): Promise<QuestionsQuizz[]> {
     return this.questionsQuizzService.findAll();

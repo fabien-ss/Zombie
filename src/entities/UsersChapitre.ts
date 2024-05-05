@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
-import { Chapitre } from "./Chapitre";
+import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Index("id_chapitre", ["idChapitre"], {})
 @Entity("users_chapitre", { schema: "vittoria_webcup" })
@@ -19,11 +11,4 @@ export class UsersChapitre {
 
   @Column("int", { name: "id_chapitre", nullable: true })
   idChapitre: number | null;
-/*
-  @ManyToOne(() => Chapitre, (chapitre) => chapitre.usersChapitres, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "id_chapitre", referencedColumnName: "idChapitre" }])
-  idChapitre2: Chapitre;*/
 }
