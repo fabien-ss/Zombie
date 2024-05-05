@@ -23,7 +23,7 @@ export class HandlerGateWay {
   constructor(
     private messageService: MessageService, // Inject the MessageService here
   ) {
-    this.forums = messageService.findAll();
+    this.forums = []
   }
   
   private positions: Map<string, { x: number, y: number, z: number }> = new Map();
@@ -83,7 +83,10 @@ export class HandlerGateWay {
 
   @SubscribeMessage('forum')
   handleMessage(): void {
+    if(this.forums.length == 0) this.forums =this.messageService.findAll();
     console.log("forum ", this.forums); 
+
+  
     this.server.emit('forum', this.forums);
   }
 
@@ -98,7 +101,7 @@ export class HandlerGateWay {
   private characters: any[] = [];
 
   @SubscribeMessage('connecter')
-  handleConnection(client: any) {
+  async handleConnection(client: any) {
     console.log('user connected');
     this.characters.push({
       id: client.id,
@@ -109,6 +112,10 @@ export class HandlerGateWay {
     });
 
     client.emit('hello');
+    if(this.forums.length == 0) this.forums = await this.messageService.findAll();
+    this.server.emit('forum', this.forums)
+    console.log(client,  this.forums)
+    console.log(JSON.stringify( this.forums))
     this.server.emit('characters', this.characters);
   }
 

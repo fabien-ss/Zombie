@@ -6,6 +6,7 @@ import { QuestionsQuizzService } from '../questions-quizz/questions-quizz.servic
 import { UsersChapitreService } from '../users-chapitre/users-chapitre.service';
 import { UsersQuizzService } from '../users-quizz/users-quizz.service';
 import { ReponsesQuestionsService } from '../reponses-question/reponses-question.service';
+import { QuestionsQuizz } from '../entities/QuestionsQuizz';
 
 @Injectable()
 export class QuizzService {

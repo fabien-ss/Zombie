@@ -8,10 +8,11 @@ import { ParagraphesService } from '../paragraphes/paragraphes.service';
 @Injectable()
   export class DetailsChapitreService {
     async getDetailsByIdChapitre(id: number) {
-      let chapitre: DetailsChapitre[] = await this.detailsChapitreRepository.find();
+      let chapitre: DetailsChapitre[] = await this.detailsChapitreRepository.find({
+        where: { idChapitre: id}});
       
       // Filter out details with matching chapter ID
-      chapitre = chapitre.filter(detail => detail.idChapitre == id);
+//      chapitre = chapitre.filter(detail => detail.idChapitre == id);
         
       return chapitre; 
     }

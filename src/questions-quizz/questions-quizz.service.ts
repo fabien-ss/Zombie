@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { getConnection } from 'typeorm';
+import { Connection } from 'typeorm';
 
 import { QuestionsQuizz } from '../entities/QuestionsQuizz';
 @Injectable()
@@ -13,6 +13,7 @@ export class QuestionsQuizzService {
   constructor(
     @InjectRepository(QuestionsQuizz)
     private readonly questionsQuizzRepository: Repository<QuestionsQuizz>,
+    private readonly connection: Connection,
   ) {}
 
   async findAll(): Promise<QuestionsQuizz[]> {
@@ -37,13 +38,10 @@ export class QuestionsQuizzService {
     await this.questionsQuizzRepository.delete(id);
   }
 
-    async getRandomQuestionsQuizz(id_quizz: number): Promise<any> {
-        try {
-
-            const connection = getConnection();
-            const nonDifficultQuestions = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]); // Exécutez la requête SQL brute
-
-            const difficultQuestion = await connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz])
+  async getRandomQuestionsQuizz(id_quizz: number): Promise<QuestionsQuizz[]> {
+    try {
+        const nonDifficultQuestions = await this.connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 0 ORDER BY RAND() ASC LIMIT 2;', [id_quizz]);
+        const difficultQuestion = await this.connection.query('SELECT * FROM `questions_quizz` `questionsQuizz` WHERE `questionsQuizz`.`id_quizz` = ? AND `questionsQuizz`.`est_difficile` = 1 ORDER BY RAND() ASC LIMIT 1;', [id_quizz]);
 
             // console.log(difficultQuestion);
 

@@ -46,15 +46,8 @@ export class ReponsesQuizzService {
       const question = await this.questionsQuizzService.findOne(idQuestion);
       this.create(reponsesQuizz);
       console.log(question);
-      let score = 0;
 
-      if(estVraie){
-        if(question.estDifficile){
-          score = 2*5;
-        } else {
-          score = 5;
-        }
-      }
+      let score = estVraie ? (question.estDifficile ? 2 * 5 : 5) : 0;
       console.log(score+" for "+estVraie);
       
       return score;
