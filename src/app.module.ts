@@ -42,6 +42,7 @@ import { Quizz } from './entities/Quizz';
 import { ReponsesQuestions } from './entities/ReponsesQuestions';
 import { MessageModule } from './message/message.module';
 import { Message } from './entities/Message';
+import { CertificateModule } from './certificate/certificate.module';
 
 @Module({
   imports: [
@@ -71,6 +72,7 @@ import { Message } from './entities/Message';
     ReponsesQuizzModule,
     DatabaseModule,
     MessageModule,
+    CertificateModule,
   ],
   controllers: [AppController,],
   providers: [AppService, HandlerGateWay, AuthService, JwtService,],
